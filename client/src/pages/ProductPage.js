@@ -8,7 +8,7 @@ import Message from '../components/Message'
 import { listProductDetails } from '../actions/product-actions.js' 
 
 const ProductPage = ({ history, match }) => {
-    const [qty, setQty] = useState(0)
+    const [ qty, setQty ] = useState(1)
     const dispatch = useDispatch()
     const productDetails = useSelector( state => state.productDetails )
     const { loading, error, product } = productDetails
@@ -20,25 +20,25 @@ const ProductPage = ({ history, match }) => {
     const addToCartHandler = () =>{
         history.push(`/cart/${match.params.id}?qty/${qty}`)
     }
-
+    
     return (
         <>
             <Link className='btn btn-dark my-3' to='/'>Go Back</Link>
             { loading ? ( <Loader /> ) : error ? ( <Message variant='danger'>{ error }</Message> ) : (
                 <Row>
-                    <Col md={6}> <Image src={ product.image } alt={ product.name } fluid /></Col>
+                    <Col md={6}><Image src={ product.image } alt={ product.name } fluid /></Col>
                     <Col md={3}>
                         <ListGroup variant='flush'>
-                            <ListGroup.Item> <h3>{ product.name }</h3> </ListGroup.Item>
-                            <ListGroup.Item> <Rating value={ product.rating } text={`${ product.numReviews } reviews`} /> </ListGroup.Item>
-                            <ListGroup.Item> Price: { product.price } </ListGroup.Item>
-                            <ListGroup.Item> Description: { product.description } </ListGroup.Item>
+                            <ListGroupItem> <h3>{ product.name }</h3> </ListGroupItem>
+                            <ListGroupItem> <Rating value={ product.rating } text={`${ product.numReviews } reviews`} /> </ListGroupItem>
+                            <ListGroupItem> Price: { product.price } </ListGroupItem>
+                            <ListGroupItem> Description: { product.description } </ListGroupItem>
                         </ListGroup>
                     </Col>
                     <Col md={3}>
                         <Card>
                             <ListGroup variant='flush'>
-                                <ListGroup.Item>
+                                <ListGroupItem>
                                     <Row>
                                         <Col>
                                             Price: 
@@ -47,8 +47,8 @@ const ProductPage = ({ history, match }) => {
                                             <strong> $ { product.price }</strong>
                                         </Col>
                                     </Row>
-                                </ListGroup.Item>
-                                <ListGroup.Item>
+                                </ListGroupItem>
+                                <ListGroupItem>
                                     <Row>
                                         <Col>
                                             Status: 
@@ -57,10 +57,10 @@ const ProductPage = ({ history, match }) => {
                                             { product.countInStock > 0 ? 'In Stock' : 'Not In Stock' }
                                         </Col>
                                     </Row>
-                                </ListGroup.Item>
+                                </ListGroupItem>
 
                                 {product.countInStock > 0 && (
-                                    <ListGroup.Item>
+                                    <ListGroupItem>
                                         <Row>
                                             <Col>Qty</Col>
                                             <Col>
@@ -71,14 +71,13 @@ const ProductPage = ({ history, match }) => {
                                                 </Form.Control>
                                             </Col>
                                         </Row>
-                                    </ListGroup.Item>
+                                    </ListGroupItem>
                                     )}
 
-
-                                <ListGroup.Item>
-                                    <Button className='btn btn-block' type='button' disabled={ product.countInStock === 0 } onClick={addToCartHandler}>Add to Cart
+                                <ListGroupItem>
+                                    <Button className='btn btn-block' type='button' disabled={ product.countInStock === 0 } onClick={ addToCartHandler }>Add to Cart
                                     </Button>
-                                </ListGroup.Item>
+                                </ListGroupItem>
                             </ListGroup>
                         </Card>
                     </Col>
